@@ -1,0 +1,422 @@
+[
+  {
+    "weekStartDate": "2025-05-06",
+    "weekEndDate": "2025-05-12",
+    "websiteVisitors": 0,
+    "waitlistSignups": 36,
+    "conversionRate": null,
+    "id": "1771421373202",
+    "createdAt": "2026-02-18T13:29:33.202Z",
+    "updatedAt": "2026-02-20T10:52:56.694Z"
+  },
+  {
+    "weekStartDate": "2025-05-12",
+    "weekEndDate": "2025-05-18",
+    "websiteVisitors": 0,
+    "waitlistSignups": 29,
+    "conversionRate": null,
+    "id": "1771421373314",
+    "createdAt": "2026-02-18T13:29:33.314Z",
+    "updatedAt": "2026-02-20T10:52:57.062Z"
+  },
+  {
+    "weekStartDate": "2025-05-19",
+    "weekEndDate": "2025-05-25",
+    "websiteVisitors": 0,
+    "waitlistSignups": 15,
+    "conversionRate": null,
+    "id": "1771421373429",
+    "createdAt": "2026-02-18T13:29:33.429Z",
+    "updatedAt": "2026-02-20T10:52:57.947Z"
+  },
+  {
+    "weekStartDate": "2025-05-26",
+    "weekEndDate": "2025-06-01",
+    "websiteVisitors": 0,
+    "waitlistSignups": 13,
+    "conversionRate": null,
+    "id": "1771421373540",
+    "createdAt": "2026-02-18T13:29:33.540Z",
+    "updatedAt": "2026-02-20T10:52:58.365Z"
+  },
+  {
+    "weekStartDate": "2025-06-02",
+    "weekEndDate": "2025-06-08",
+    "websiteVisitors": 0,
+    "waitlistSignups": 11,
+    "conversionRate": null,
+    "id": "1771421373652",
+    "createdAt": "2026-02-18T13:29:33.652Z",
+    "updatedAt": "2026-02-20T10:52:58.737Z"
+  },
+  {
+    "weekStartDate": "2025-06-09",
+    "weekEndDate": "2025-06-15",
+    "websiteVisitors": 0,
+    "waitlistSignups": 9,
+    "conversionRate": null,
+    "id": "1771421373767",
+    "createdAt": "2026-02-18T13:29:33.767Z",
+    "updatedAt": "2026-02-20T10:52:59.132Z"
+  },
+  {
+    "weekStartDate": "2025-06-16",
+    "weekEndDate": "2025-06-22",
+    "websiteVisitors": 0,
+    "waitlistSignups": 9,
+    "conversionRate": null,
+    "id": "1771421373881",
+    "createdAt": "2026-02-18T13:29:33.881Z",
+    "updatedAt": "2026-02-20T10:52:59.522Z"
+  },
+  {
+    "weekStartDate": "2025-06-23",
+    "weekEndDate": "2025-06-29",
+    "websiteVisitors": 0,
+    "waitlistSignups": 9,
+    "conversionRate": null,
+    "id": "1771421373996",
+    "createdAt": "2026-02-18T13:29:33.996Z",
+    "updatedAt": "2026-02-20T10:52:59.913Z"
+  },
+  {
+    "weekStartDate": "2025-06-30",
+    "weekEndDate": "2025-07-06",
+    "websiteVisitors": 0,
+    "waitlistSignups": 16,
+    "conversionRate": null,
+    "id": "1771421374108",
+    "createdAt": "2026-02-18T13:29:34.108Z",
+    "updatedAt": "2026-02-20T10:53:00.323Z"
+  },
+  {
+    "weekStartDate": "2025-07-07",
+    "weekEndDate": "2025-07-13",
+    "websiteVisitors": 0,
+    "waitlistSignups": 18,
+    "conversionRate": null,
+    "id": "1771421374242",
+    "createdAt": "2026-02-18T13:29:34.242Z",
+    "updatedAt": "2026-02-20T10:53:00.698Z"
+  },
+  {
+    "weekStartDate": "2025-07-14",
+    "weekEndDate": "2025-07-20",
+    "websiteVisitors": 0,
+    "waitlistSignups": 18,
+    "conversionRate": null,
+    "id": "1771421374352",
+    "createdAt": "2026-02-18T13:29:34.352Z",
+    "updatedAt": "2026-02-20T10:53:01.085Z"
+  },
+  {
+    "weekStartDate": "2025-07-21",
+    "weekEndDate": "2025-07-27",
+    "websiteVisitors": 0,
+    "waitlistSignups": 20,
+    "conversionRate": null,
+    "id": "1771421374462",
+    "createdAt": "2026-02-18T13:29:34.462Z",
+    "updatedAt": "2026-02-20T10:53:01.458Z"
+  },
+  {
+    "weekStartDate": "2025-07-28",
+    "weekEndDate": "2025-08-03",
+    "websiteVisitors": 0,
+    "waitlistSignups": 5,
+    "conversionRate": null,
+    "id": "1771421374573",
+    "createdAt": "2026-02-18T13:29:34.573Z",
+    "updatedAt": "2026-02-20T10:53:01.861Z"
+  },
+  {
+    "weekStartDate": "2025-08-04",
+    "weekEndDate": "2025-08-10",
+    "websiteVisitors": 0,
+    "waitlistSignups": 16,
+    "conversionRate": null,
+    "id": "1771421374686",
+    "createdAt": "2026-02-18T13:29:34.686Z",
+    "updatedAt": "2026-02-20T10:53:02.283Z"
+  },
+  {
+    "weekStartDate": "2025-08-11",
+    "weekEndDate": "2025-08-17",
+    "websiteVisitors": 0,
+    "waitlistSignups": 90,
+    "conversionRate": null,
+    "id": "1771421374797",
+    "createdAt": "2026-02-18T13:29:34.797Z",
+    "updatedAt": "2026-02-20T10:53:02.676Z"
+  },
+  {
+    "weekStartDate": "2025-08-18",
+    "weekEndDate": "2025-08-24",
+    "websiteVisitors": 0,
+    "waitlistSignups": 41,
+    "conversionRate": null,
+    "id": "1771421374910",
+    "createdAt": "2026-02-18T13:29:34.910Z",
+    "updatedAt": "2026-02-20T10:53:03.274Z"
+  },
+  {
+    "weekStartDate": "2025-08-25",
+    "weekEndDate": "2025-08-31",
+    "websiteVisitors": 0,
+    "waitlistSignups": 114,
+    "conversionRate": null,
+    "id": "1771421375023",
+    "createdAt": "2026-02-18T13:29:35.023Z",
+    "updatedAt": "2026-02-20T10:53:03.671Z"
+  },
+  {
+    "weekStartDate": "2025-09-01",
+    "weekEndDate": "2025-09-07",
+    "websiteVisitors": 0,
+    "waitlistSignups": 56,
+    "conversionRate": null,
+    "id": "1771421375136",
+    "createdAt": "2026-02-18T13:29:35.136Z",
+    "updatedAt": "2026-02-20T10:53:04.257Z"
+  },
+  {
+    "weekStartDate": "2025-09-08",
+    "weekEndDate": "2025-09-14",
+    "websiteVisitors": 0,
+    "waitlistSignups": 158,
+    "conversionRate": null,
+    "id": "1771421375245",
+    "createdAt": "2026-02-18T13:29:35.245Z",
+    "updatedAt": "2026-02-20T10:53:04.792Z"
+  },
+  {
+    "weekStartDate": "2025-09-15",
+    "weekEndDate": "2025-09-21",
+    "websiteVisitors": 0,
+    "waitlistSignups": 33,
+    "conversionRate": null,
+    "id": "1771421375355",
+    "createdAt": "2026-02-18T13:29:35.355Z",
+    "updatedAt": "2026-02-20T10:53:05.180Z"
+  },
+  {
+    "weekStartDate": "2025-09-22",
+    "weekEndDate": "2025-09-28",
+    "websiteVisitors": 0,
+    "waitlistSignups": 50,
+    "conversionRate": null,
+    "id": "1771421375467",
+    "createdAt": "2026-02-18T13:29:35.467Z",
+    "updatedAt": "2026-02-20T10:53:05.587Z"
+  },
+  {
+    "weekStartDate": "2025-09-29",
+    "weekEndDate": "2025-10-05",
+    "websiteVisitors": 0,
+    "waitlistSignups": 19,
+    "conversionRate": null,
+    "id": "1771421375579",
+    "createdAt": "2026-02-18T13:29:35.579Z",
+    "updatedAt": "2026-02-20T10:53:06.126Z"
+  },
+  {
+    "weekStartDate": "2025-10-06",
+    "weekEndDate": "2025-10-12",
+    "websiteVisitors": 0,
+    "waitlistSignups": 68,
+    "conversionRate": null,
+    "id": "1771421375692",
+    "createdAt": "2026-02-18T13:29:35.692Z",
+    "updatedAt": "2026-02-20T10:53:06.596Z"
+  },
+  {
+    "weekStartDate": "2025-10-13",
+    "weekEndDate": "2025-10-19",
+    "websiteVisitors": 0,
+    "waitlistSignups": 100,
+    "conversionRate": null,
+    "id": "1771421375804",
+    "createdAt": "2026-02-18T13:29:35.804Z",
+    "updatedAt": "2026-02-20T10:53:06.996Z"
+  },
+  {
+    "weekStartDate": "2025-10-20",
+    "weekEndDate": "2025-10-26",
+    "websiteVisitors": 0,
+    "waitlistSignups": 76,
+    "conversionRate": null,
+    "id": "1771421375917",
+    "createdAt": "2026-02-18T13:29:35.917Z",
+    "updatedAt": "2026-02-20T10:53:07.441Z"
+  },
+  {
+    "weekStartDate": "2025-10-27",
+    "weekEndDate": "2025-11-02",
+    "websiteVisitors": 0,
+    "waitlistSignups": 77,
+    "conversionRate": null,
+    "id": "1771421376030",
+    "createdAt": "2026-02-18T13:29:36.030Z",
+    "updatedAt": "2026-02-20T10:53:07.838Z"
+  },
+  {
+    "weekStartDate": "2025-11-03",
+    "weekEndDate": "2025-11-09",
+    "websiteVisitors": 0,
+    "waitlistSignups": 84,
+    "conversionRate": null,
+    "id": "1771421376144",
+    "createdAt": "2026-02-18T13:29:36.144Z",
+    "updatedAt": "2026-02-20T10:53:09.227Z"
+  },
+  {
+    "weekStartDate": "2025-11-10",
+    "weekEndDate": "2025-11-16",
+    "websiteVisitors": 0,
+    "waitlistSignups": 77,
+    "conversionRate": null,
+    "id": "1771421376251",
+    "createdAt": "2026-02-18T13:29:36.251Z",
+    "updatedAt": "2026-02-20T10:53:09.601Z"
+  },
+  {
+    "weekStartDate": "2025-11-17",
+    "weekEndDate": "2025-11-23",
+    "websiteVisitors": 0,
+    "waitlistSignups": 138,
+    "conversionRate": null,
+    "id": "1771421376395",
+    "createdAt": "2026-02-18T13:29:36.395Z",
+    "updatedAt": "2026-02-20T10:53:10.349Z"
+  },
+  {
+    "weekStartDate": "2025-11-24",
+    "weekEndDate": "2025-11-30",
+    "websiteVisitors": 0,
+    "waitlistSignups": 114,
+    "conversionRate": null,
+    "id": "1771421376505",
+    "createdAt": "2026-02-18T13:29:36.505Z",
+    "updatedAt": "2026-02-20T10:53:10.803Z"
+  },
+  {
+    "weekStartDate": "2025-12-01",
+    "weekEndDate": "2025-12-07",
+    "websiteVisitors": 0,
+    "waitlistSignups": 187,
+    "conversionRate": null,
+    "id": "1771421376615",
+    "createdAt": "2026-02-18T13:29:36.615Z",
+    "updatedAt": "2026-02-20T10:53:11.376Z"
+  },
+  {
+    "weekStartDate": "2025-12-08",
+    "weekEndDate": "2025-12-14",
+    "websiteVisitors": 0,
+    "waitlistSignups": 102,
+    "conversionRate": null,
+    "id": "1771421376728",
+    "createdAt": "2026-02-18T13:29:36.728Z",
+    "updatedAt": "2026-02-20T10:53:11.795Z"
+  },
+  {
+    "weekStartDate": "2025-12-15",
+    "weekEndDate": "2025-12-21",
+    "websiteVisitors": 0,
+    "waitlistSignups": 71,
+    "conversionRate": null,
+    "id": "1771421376838",
+    "createdAt": "2026-02-18T13:29:36.838Z",
+    "updatedAt": "2026-02-20T10:53:12.169Z"
+  },
+  {
+    "weekStartDate": "2025-12-22",
+    "weekEndDate": "2025-12-28",
+    "websiteVisitors": 0,
+    "waitlistSignups": 61,
+    "conversionRate": null,
+    "id": "1771421376954",
+    "createdAt": "2026-02-18T13:29:36.954Z",
+    "updatedAt": "2026-02-20T10:53:12.604Z"
+  },
+  {
+    "weekStartDate": "2025-12-29",
+    "weekEndDate": "2026-01-04",
+    "websiteVisitors": 0,
+    "waitlistSignups": 41,
+    "conversionRate": null,
+    "id": "1771421377072",
+    "createdAt": "2026-02-18T13:29:37.072Z",
+    "updatedAt": "2026-02-20T10:53:13.050Z"
+  },
+  {
+    "weekStartDate": "2026-01-05",
+    "weekEndDate": "2026-01-11",
+    "websiteVisitors": 0,
+    "waitlistSignups": 68,
+    "conversionRate": null,
+    "id": "1771421377181",
+    "createdAt": "2026-02-18T13:29:37.181Z",
+    "updatedAt": "2026-02-20T10:53:13.455Z"
+  },
+  {
+    "weekStartDate": "2026-01-12",
+    "weekEndDate": "2026-01-18",
+    "websiteVisitors": 0,
+    "waitlistSignups": 69,
+    "conversionRate": null,
+    "id": "1771421377288",
+    "createdAt": "2026-02-18T13:29:37.289Z",
+    "updatedAt": "2026-02-20T10:53:13.832Z"
+  },
+  {
+    "weekStartDate": "2026-01-19",
+    "weekEndDate": "2026-01-25",
+    "websiteVisitors": 0,
+    "waitlistSignups": 55,
+    "conversionRate": null,
+    "id": "1771421377403",
+    "createdAt": "2026-02-18T13:29:37.403Z",
+    "updatedAt": "2026-02-20T10:53:14.208Z"
+  },
+  {
+    "weekStartDate": "2026-01-26",
+    "weekEndDate": "2026-02-01",
+    "websiteVisitors": 0,
+    "waitlistSignups": 31,
+    "conversionRate": null,
+    "id": "1771421377524",
+    "createdAt": "2026-02-18T13:29:37.524Z",
+    "updatedAt": "2026-02-20T10:53:14.579Z"
+  },
+  {
+    "weekStartDate": "2026-02-02",
+    "weekEndDate": "2026-02-08",
+    "websiteVisitors": 0,
+    "waitlistSignups": 61,
+    "conversionRate": null,
+    "id": "1771421377640",
+    "createdAt": "2026-02-18T13:29:37.640Z",
+    "updatedAt": "2026-02-20T10:53:15.090Z"
+  },
+  {
+    "weekStartDate": "2026-02-09",
+    "weekEndDate": "2026-02-15",
+    "websiteVisitors": 0,
+    "waitlistSignups": 67,
+    "conversionRate": null,
+    "id": "1771421377764",
+    "createdAt": "2026-02-18T13:29:37.764Z",
+    "updatedAt": "2026-02-20T10:53:15.498Z"
+  },
+  {
+    "weekStartDate": "2026-02-16",
+    "weekEndDate": "2026-02-22",
+    "websiteVisitors": 0,
+    "waitlistSignups": 6,
+    "conversionRate": null,
+    "id": "1771421377878",
+    "createdAt": "2026-02-18T13:29:37.878Z",
+    "updatedAt": "2026-02-20T10:53:15.876Z"
+  }
+]
