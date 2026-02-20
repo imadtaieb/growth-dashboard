@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/sync-visitors",
+      "schedule": "0 */6 * * *"
+    }
+  ]
+}
