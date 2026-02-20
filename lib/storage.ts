@@ -10,7 +10,14 @@ import { WeeklyMetrics } from './types';
 
 const TABLE_NAME = 'weekly_metrics';
 
+function validateSupabase() {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    throw new Error('Missing Supabase environment variables. Please check your configuration.');
+  }
+}
+
 export async function getAllMetrics(): Promise<WeeklyMetrics[]> {
+  validateSupabase();
   const { data, error } = await supabase
     .from(TABLE_NAME)
     .select('*')
