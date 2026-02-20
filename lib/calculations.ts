@@ -1,4 +1,16 @@
 import { WeeklyMetrics, GrowthData, DashboardStats } from './types';
+import { startOfWeek, endOfWeek, format } from 'date-fns';
+
+/**
+ * Calculate conversion rate from visitors and signups
+ * @param visitors Number of website visitors
+ * @param signups Number of waitlist signups
+ * @returns Conversion rate as a percentage (0-100)
+ */
+export function calculateConversionRate(visitors: number, signups: number): number {
+  if (visitors === 0) return 0;
+  return Number(((signups / visitors) * 100).toFixed(2));
+}
 
 export function calculateGrowth(current: WeeklyMetrics, previous?: WeeklyMetrics): GrowthData['weekOverWeekGrowth'] {
   if (!previous) {
@@ -50,15 +62,18 @@ export function calculateDashboardStats(metrics: WeeklyMetrics[]): DashboardStat
   };
 }
 
+/**
+ * Get the week range for a given date (Monday to Sunday)
+ * Consistent with visitor-tracker.ts implementation
+ * @param date Any date within the week
+ * @returns Object with start and end dates in YYYY-MM-DD format
+ */
 export function getWeekDateRange(date: Date): { start: string; end: string } {
-  const start = new Date(date);
-  start.setDate(date.getDate() - date.getDay()); // Start on Sunday
-
-  const end = new Date(start);
-  end.setDate(start.getDate() + 6); // End on Saturday
+  const weekStart = startOfWeek(date, { weekStartsOn: 1 }); // Monday
+  const weekEnd = endOfWeek(date, { weekStartsOn: 1 }); // Sunday
 
   return {
-    start: start.toISOString().split('T')[0],
-    end: end.toISOString().split('T')[0],
+    start: format(weekStart, 'yyyy-MM-dd'),
+    end: format(weekEnd, 'yyyy-MM-dd'),
   };
 }

@@ -8,6 +8,7 @@ import GrowthChart from './components/GrowthChart';
 import MetricsTable from './components/MetricsTable';
 import AddMetricForm from './components/AddMetricForm';
 import SyncFromSheetsModal from './components/SyncFromSheetsModal';
+import SyncPostHogButton from './components/SyncPostHogButton';
 
 export default function Home() {
   const [metrics, setMetrics] = useState<WeeklyMetrics[]>([]);
@@ -74,6 +75,7 @@ export default function Home() {
             </p>
           </div>
           <div className="flex gap-3">
+            <SyncPostHogButton onSuccess={fetchMetrics} />
             <SyncFromSheetsModal onSuccess={fetchMetrics} />
             <AddMetricForm onSuccess={fetchMetrics} />
           </div>

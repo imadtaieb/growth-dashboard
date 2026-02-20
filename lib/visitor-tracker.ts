@@ -6,7 +6,7 @@
 
 import { getAllMetrics, updateMetric, getMetricById } from './storage';
 import { getPostHogVisitors } from './integrations/posthog';
-import { startOfWeek, endOfWeek, format } from 'date-fns';
+import { getWeekDateRange, calculateConversionRate } from './calculations';
 
 interface SyncResult {
   updated: number;
@@ -16,16 +16,14 @@ interface SyncResult {
 }
 
 /**
- * Get the week range for a given date
+ * Check if a week should be synced from PostHog
+ * Weeks 1-32 (ending before 2025-12-15) are manually imported and should not be synced
  */
-function getWeekRange(date: Date): { start: string; end: string } {
-  const weekStart = startOfWeek(date, { weekStartsOn: 1 }); // Monday
-  const weekEnd = endOfWeek(date, { weekStartsOn: 1 }); // Sunday
-
-  return {
-    start: format(weekStart, 'yyyy-MM-dd'),
-    end: format(weekEnd, 'yyyy-MM-dd'),
-  };
+function shouldSyncFromPostHog(weekStartDate: string, weekEndDate: string): boolean {
+  // Week 32 ends on 2025-12-14, Week 33 starts on 2025-12-15
+  // Skip any weeks ending before 2025-12-15
+  const cutoffDate = '2025-12-15';
+  return weekEndDate >= cutoffDate;
 }
 
 /**
@@ -34,7 +32,7 @@ function getWeekRange(date: Date): { start: string; end: string } {
  */
 export async function updateMetricVisitors(timestamp: Date): Promise<boolean> {
   try {
-    const { start, end } = getWeekRange(timestamp);
+    const { start, end } = getWeekDateRange(timestamp);
 
     // Find the metric for this week
     const allMetrics = await getAllMetrics();
@@ -47,6 +45,12 @@ export async function updateMetricVisitors(timestamp: Date): Promise<boolean> {
       return false;
     }
 
+    // Skip weeks 1-32 (manually imported data)
+    if (!shouldSyncFromPostHog(start, end)) {
+      console.log(`Skipping sync for week ${start} to ${end} (manually imported)`);
+      return false;
+    }
+
     // Fetch latest visitor count from PostHog
     const visitors = await getPostHogVisitors(start, end);
 
@@ -56,12 +60,12 @@ export async function updateMetricVisitors(timestamp: Date): Promise<boolean> {
     }
 
     // Calculate new conversion rate
-    const conversionRate = visitors === 0 ? 0 : (metric.waitlistSignups / visitors) * 100;
+    const conversionRate = calculateConversionRate(visitors, metric.waitlistSignups);
 
     // Update the metric
     await updateMetric(metric.id, {
       websiteVisitors: visitors,
-      conversionRate: Number(conversionRate.toFixed(2)),
+      conversionRate,
     });
 
     console.log(`Updated ${metric.id}: ${metric.websiteVisitors} → ${visitors} visitors`);
@@ -95,6 +99,13 @@ export async function syncAllMetricsWithPostHog(): Promise<SyncResult> {
     // Process each metric
     for (const metric of metrics) {
       try {
+        // Skip weeks 1-32 (manually imported data)
+        if (!shouldSyncFromPostHog(metric.weekStartDate, metric.weekEndDate)) {
+          result.skipped++;
+          console.log(`[Sync] Skipping ${metric.weekStartDate} (manually imported)`);
+          continue;
+        }
+
         // Fetch latest visitor count from PostHog
         const visitors = await getPostHogVisitors(
           metric.weekStartDate,
@@ -108,12 +119,12 @@ export async function syncAllMetricsWithPostHog(): Promise<SyncResult> {
         }
 
         // Calculate new conversion rate
-        const conversionRate = visitors === 0 ? 0 : (metric.waitlistSignups / visitors) * 100;
+        const conversionRate = calculateConversionRate(visitors, metric.waitlistSignups);
 
         // Update the metric
         const updated = await updateMetric(metric.id, {
           websiteVisitors: visitors,
-          conversionRate: Number(conversionRate.toFixed(2)),
+          conversionRate,
         });
 
         if (updated) {
@@ -152,6 +163,12 @@ export async function syncMetricById(id: string): Promise<boolean> {
       return false;
     }
 
+    // Skip weeks 1-32 (manually imported data)
+    if (!shouldSyncFromPostHog(metric.weekStartDate, metric.weekEndDate)) {
+      console.log(`Skipping sync for metric ${id} (manually imported)`);
+      return false;
+    }
+
     // Fetch latest visitor count from PostHog
     const visitors = await getPostHogVisitors(
       metric.weekStartDate,
@@ -165,12 +182,12 @@ export async function syncMetricById(id: string): Promise<boolean> {
     }
 
     // Calculate new conversion rate
-    const conversionRate = visitors === 0 ? 0 : (metric.waitlistSignups / visitors) * 100;
+    const conversionRate = calculateConversionRate(visitors, metric.waitlistSignups);
 
     // Update the metric
     const updated = await updateMetric(metric.id, {
       websiteVisitors: visitors,
-      conversionRate: Number(conversionRate.toFixed(2)),
+      conversionRate,
     });
 
     if (updated) {
