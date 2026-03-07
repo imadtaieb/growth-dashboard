@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Windo — One AI memory everywhere</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text-primary: rgba(28,28,28,0.8);
+      --text-secondary: rgba(28,28,28,0.4);
+      --text-light: rgba(28,28,28,0.2);
+      --bg-card: rgba(242,242,242,0.8);
+      --btn-bg: #1c1c1c;
+      --accent-blue: #010168;
+      --bg-base: #fafafa;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO WRAPPER ─────────────────────────────────────────────── */
+    .hero-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      min-height: 1060px;
+    }
+
+    /* sky gradient */
+    .hero-bg-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(67,186,245,0.8) 0%,
+        rgba(210,228,247,0.8) 66%,
+        #fafafa 100%);
+      z-index: 0;
+    }
+
+    /* left / right cloud images */
+    .hero-cloud-left,
+    .hero-cloud-right {
+      position: absolute;
+      top: 266px;
+      width: 600px;
+      height: 480px;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hero-cloud-left  { left: -20px; }
+    .hero-cloud-right { right: -20px; transform: scaleX(-1); }
+    .hero-cloud-left img,
+    .hero-cloud-right img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* horizon strip */
+    .hero-horizon {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      width: 1200px;
+      height: 398px;
+      border-radius: 16px;
+      overflow: hidden;
+      opacity: 0.6;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hero-horizon img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ─── NAV ────────────────────────────────────────────────────────── */
+    .nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 42px 80px 0;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-icon {
+      width: 47px;
+      height: 43px;
+      overflow: hidden;
+    }
+    .logo-icon img { width: 100%; height: 100%; object-fit: contain; }
+    .logo-wordmark { height: 29px; }
+    .logo-wordmark img { height: 100%; }
+
+    /* ─── BUTTON ─────────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--btn-bg);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      padding: 4px 8px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn:hover { opacity: 0.85; }
+
+    /* ─── HERO CONTENT ───────────────────────────────────────────────── */
+    .hero-content {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding-top: 113px;
+      padding-bottom: 60px;
+    }
+
+    .hero-title {
+      font-size: 54px;
+      font-weight: 600;
+      line-height: 72px;
+      letter-spacing: -1.62px;
+      color: #101612;
+      text-align: center;
+      max-width: 935px;
+    }
+    .hero-title .highlight { color: var(--accent-blue); }
+
+    .hero-subtitle {
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 40px;
+      color: var(--text-secondary);
+      text-align: center;
+      max-width: 684px;
+    }
+
+    /* ─── ICONS STRIP (flanking hero) ─────────────────────────────────── */
+    .icons-strip {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 210px;
+      margin-top: 40px;
+      padding-bottom: 60px;
+    }
+
+    .icon-col {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      width: 54px;
+    }
+
+    .app-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 10px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .app-icon img { width: 32px; height: 32px; object-fit: contain; }
+    .app-icon.shadow { box-shadow: 0 4px 4px rgba(0,0,0,0.25); border-radius: 10px; }
+    .app-icon.no-bg { background: transparent; }
+    .app-icon.no-bg img { width: 54px; height: 54px; }
+
+    /* Windo center window mockup */
+    .windo-mockup {
+      width: 222px;
+      height: 222px;
+      border-radius: 7.835px;
+      position: relative;
+      flex-shrink: 0;
+      background: rgba(246,246,246,0.72);
+      backdrop-filter: blur(19.588px);
+      -webkit-backdrop-filter: blur(19.588px);
+      box-shadow: 0 2.346px 16.088px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+
+    .windo-mock-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 10px;
+      border-bottom: 0.65px solid rgba(0,0,0,0.1);
+    }
+    .windo-mock-dot {
+      width: 7.835px;
+      height: 7.835px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.1);
+    }
+    .windo-mock-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(0,0,0,0.85);
+      margin-left: 4px;
+    }
+
+    .windo-mock-body {
+      padding: 6px 6px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .windo-mock-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      height: 21px;
+      padding: 0 4px;
+      border-radius: 4px;
+    }
+    .windo-mock-row.active { background: rgba(0,0,0,0.05); }
+    .windo-mock-row-icon {
+      width: 13px;
+      height: 13px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .windo-mock-row-label {
+      font-size: 6px;
+      font-weight: 500;
+      color: rgba(0,0,0,0.5);
+    }
+    .windo-mock-row.active .windo-mock-row-label { color: rgba(0,0,0,0.85); }
+    .windo-mock-items {
+      display: flex;
+      flex-direction: column;
+      margin-top: 6px;
+      gap: 0;
+    }
+    .windo-mock-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      height: 20px;
+      padding: 0 4px;
+    }
+    .windo-mock-item-icon {
+      width: 13px;
+      height: 13px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .windo-mock-item-label { font-size: 6px; font-weight: 500; color: rgba(0,0,0,0.5); }
+
+    /* ─── SECTION WRAPPER ────────────────────────────────────────────── */
+    .section {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 80px;
+    }
+
+    /* ─── HOW IT WORKS ───────────────────────────────────────────────── */
+    .how-it-works {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
+    .section-title {
+      font-size: 48px;
+      font-weight: 600;
+      line-height: 40px;
+      letter-spacing: -1.44px;
+      color: var(--text-primary);
+      margin-bottom: 80px;
+    }
+
+    .video-grid {
+      display: flex;
+      gap: 23px;
+      align-items: flex-start;
+    }
+
+    .video-card {
+      flex: 1;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 390px;
+      background: rgba(242,242,242,0.8);
+      position: relative;
+    }
+    .video-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .video-caption {
+      margin-top: 16px;
+    }
+    .video-caption-num {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 40px;
+      letter-spacing: -0.96px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .video-caption-text {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 20px;
+      color: var(--text-secondary);
+    }
+
+    /* ─── CHROME EXTENSION ───────────────────────────────────────────── */
+    .chrome-section {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
+    .chrome-inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 80px;
+    }
+
+    .chrome-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding-top: 80px;
+    }
+
+    .chrome-heading {
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 40px;
+      letter-spacing: -1.2px;
+      color: var(--text-primary);
+      text-align: center;
+      width: 100%;
+    }
+
+    .chrome-subtitle {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 40px;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    .chrome-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 462px;
+    }
+
+    .feature-item { display: flex; flex-direction: column; gap: 12px; }
+    .feature-title {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 24px;
+      letter-spacing: -0.84px;
+      color: var(--text-primary);
+    }
+    .feature-title.dimmed { color: var(--text-light); }
+    .feature-desc {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 20px;
+      color: var(--text-secondary);
+    }
+    .feature-desc.dimmed { color: rgba(28,28,28,0.2); }
+
+    .chrome-video-wrap {
+      width: 651px;
+      height: 445px;
+      border-radius: 12px;
+      background: #e9f7ff;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .chrome-video-wrap video {
+      position: absolute;
+      left: 22px;
+      top: 47px;
+      width: 562px;
+      height: 351px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    /* centered layout for chrome section */
+    .chrome-section-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .chrome-content-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 40px;
+      width: 100%;
+    }
+
+    /* ─── CONTEXT CAPTURING ──────────────────────────────────────────── */
+    .context-section {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
+    .context-title {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 40px;
+      letter-spacing: -1.2px;
+      color: var(--text-primary);
+      margin-bottom: 48px;
+    }
+
+    .context-cards {
+      display: flex;
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    .context-card {
+      flex: 1;
+      height: 460px;
+      background: var(--bg-card);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      padding: 30px 17px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .context-card-title {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 16px;
+      letter-spacing: -0.6px;
+      color: var(--text-primary);
+    }
+    .context-card-desc {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 18px;
+      color: rgba(28,28,28,0.4);
+    }
+
+    .context-card-img {
+      border-radius: 8px;
+      overflow: hidden;
+      flex: 1;
+      position: relative;
+    }
+    .context-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    /* ─── SPACES SECTION ──────────────────────────────────────────────── */
+    .spaces-section {
+      position: relative;
+      margin: 0;
+      overflow: hidden;
+    }
+    .spaces-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .spaces-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.65;
+    }
+    .spaces-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 176px 80px 225px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 67px;
+    }
+    .spaces-text {
+      text-align: center;
+      max-width: 935px;
+    }
+    .spaces-title {
+      font-size: 54px;
+      font-weight: 600;
+      line-height: 72px;
+      letter-spacing: -1.62px;
+      color: #101612;
+      margin-bottom: 0;
+    }
+    .spaces-title .highlight { color: #010168; }
+    .spaces-subtitle {
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 40px;
+      color: var(--text-secondary);
+      margin-top: 89px;
+      max-width: 718px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Windo window mockup (large) */
+    .windo-window {
+      width: 340px;
+      height: 340px;
+      border-radius: 12px;
+      background: rgba(246,246,246,0.48);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 3.593px 24.639px rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .windo-win-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 12px;
+    }
+    .windo-win-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.1);
+    }
+    .windo-win-name {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 22px;
+      color: rgba(0,0,0,0.85);
+      margin-left: 8px;
+      margin-top: 32px;
+      padding: 0 12px;
+      display: block;
+    }
+    .windo-win-divider {
+      height: 1px;
+      background: rgba(0,0,0,0.1);
+      margin: 8px 10px;
+    }
+    .windo-win-rows {
+      padding: 0 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .windo-win-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 32px;
+      padding: 0 8px;
+      border-radius: 8px;
+    }
+    .windo-win-row.active { background: rgba(0,0,0,0.05); }
+    .windo-win-row-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .windo-win-row-icon img { width: 100%; height: 100%; }
+    .windo-win-row-label {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      color: rgba(0,0,0,0.5);
+    }
+    .windo-win-row.active .windo-win-row-label { color: rgba(0,0,0,0.85); }
+    .windo-win-row-badge {
+      margin-left: auto;
+      width: 8px;
+      height: 24px;
+    }
+
+    /* ─── CONSISTENT CONTEXT SECTION ─────────────────────────────────── */
+    .consistent-section {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+    .consistent-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .consistent-heading {
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 40px;
+      letter-spacing: -1.2px;
+      color: var(--text-primary);
+      text-align: center;
+    }
+    .consistent-sub {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 40px;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-top: 12px;
+      max-width: 845px;
+    }
+    .consistent-diagram {
+      margin-top: 60px;
+      width: 880px;
+      height: 534px;
+      border-radius: 12px;
+      background: #e9f7ff;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* center logo */
+    .diagram-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 107px;
+      height: 107px;
+    }
+    .diagram-center img { width: 100%; height: 100%; object-fit: contain; }
+
+    /* nodes */
+    .diagram-node {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .diagram-node-circle {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .diagram-node-circle img { width: 34px; height: 34px; object-fit: contain; }
+
+    /* connector lines (decorative) */
+    .connector-line {
+      position: absolute;
+      background: none;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────────────────────────── */
+    .footer {
+      height: 200px;
+      background: rgba(242,242,242,0.8);
+      margin: 0 80px;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .footer-text {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(28,28,28,0.3);
+    }
+
+    /* ─── SPACING UTILITY ─────────────────────────────────────────────── */
+    .mt-8 { margin-top: 8px; }
+    .mt-12 { margin-top: 12px; }
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .mt-40 { margin-top: 40px; }
+    .mt-80 { margin-top: 80px; }
+
+    /* Chrome install btn specific */
+    .btn-chrome { gap: 6px; padding: 4px 10px; }
+    .btn-chrome img { width: 12px; height: 12px; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .section { padding: 0 40px; }
+      .nav { padding: 32px 40px 0; }
+      .icons-strip { gap: 80px; }
+      .hero-cloud-left, .hero-cloud-right { width: 380px; }
+    }
+    @media (max-width: 768px) {
+      .icons-strip { flex-direction: column; align-items: center; gap: 40px; }
+      .icon-col { flex-direction: row; width: auto; }
+      .video-grid { flex-direction: column; }
+      .context-cards { flex-direction: column; }
+      .chrome-content-row { flex-direction: column; }
+      .hero-title { font-size: 36px; line-height: 48px; }
+      .hero-cloud-left, .hero-cloud-right { display: none; }
+      .consistent-diagram { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HERO SECTION ───────────────────────────────────────────────────── -->
+<div class="hero-wrapper">
+  <div class="hero-bg-gradient"></div>
+
+  <!-- clouds -->
+  <div class="hero-cloud-left">
+    <img src="http://localhost:3845/assets/a1b7a2f3324dc7d4004dc58cb64c8b5cce718cd9.png" alt="" />
+  </div>
+  <div class="hero-cloud-right">
+    <img src="http://localhost:3845/assets/a1b7a2f3324dc7d4004dc58cb64c8b5cce718cd9.png" alt="" />
+  </div>
+
+  <!-- horizon strip -->
+  <div class="hero-horizon">
+    <img src="http://localhost:3845/assets/094c0d03252a672d01e54371c142889855594740.png" alt="" />
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="logo">
+      <div class="logo-icon">
+        <img src="http://localhost:3845/assets/31e1913e2a8297bc8b2eb9c756476e245128dffe.png" alt="Windo icon" />
+      </div>
+      <div class="logo-wordmark">
+        <img src="http://localhost:3845/assets/cfb3d89491e9e3231871275392de024333bd4926.svg" alt="Windo" />
+      </div>
+    </div>
+    <a class="btn" href="#">Join Waitlist</a>
+  </nav>
+
+  <!-- HERO CONTENT -->
+  <div class="hero-content section">
+    <h1 class="hero-title">
+      One <span class="highlight">AI memory</span> everywhere!
+    </h1>
+    <p class="hero-subtitle">
+      Use one context everywhere you go.<br />
+      Setup once. Use it across any model.
+    </p>
+    <a class="btn" href="#">Join Waitlist</a>
+  </div>
+
+  <!-- ICONS STRIP -->
+  <div class="icons-strip section">
+    <!-- Left column -->
+    <div class="icon-col">
+      <!-- Windo symbol -->
+      <div class="app-icon">
+        <img src="http://localhost:3845/assets/66febedffebfa998094e4f62ce20b6855ce5b43b.png" alt="Windo" />
+      </div>
+      <!-- Google Drive -->
+      <div class="app-icon" style="padding: 10px;">
+        <img src="http://localhost:3845/assets/a9d67f4993b9c573ccfce1f7075d89bb078e4775.svg" alt="Google Drive" style="width:34px;height:30px;" />
+      </div>
+      <!-- Bitmap (app icon) -->
+      <div class="app-icon no-bg" style="width:54px;height:57px;">
+        <img src="http://localhost:3845/assets/e7ea49c3594561e8db16bde593b4b7e5a6d3761d.png" alt="" style="width:54px;height:57px;" />
+      </div>
+      <!-- image 95 -->
+      <div class="app-icon" style="border-radius:10px;overflow:hidden;">
+        <img src="http://localhost:3845/assets/32da84bb67428154e06526e54315c68a0aad4c3d.png" alt="" style="width:54px;height:54px;object-fit:cover;" />
+      </div>
+      <!-- image 94 -->
+      <div class="app-icon no-bg">
+        <img src="http://localhost:3845/assets/49e3d471fd3de9e04299cb27faf8f098405df7f2.png" alt="" style="width:54px;height:54px;object-fit:cover;" />
+      </div>
+    </div>
+
+    <!-- WINDO CENTER MOCKUP -->
+    <div class="windo-mockup">
+      <div class="windo-mock-titlebar">
+        <div class="windo-mock-dot"></div>
+        <div class="windo-mock-dot"></div>
+        <div class="windo-mock-dot"></div>
+      </div>
+      <div style="padding: 4px 6px 0;">
+        <div style="display:flex;align-items:center;gap:5px;padding:0 3px;margin-bottom:4px;">
+          <img src="http://localhost:3845/assets/521eb497434af43c1f8be807b9f0e415256f9372.svg" alt="" style="width:10px;height:10px;" />
+          <span style="font-size:11px;font-weight:700;color:rgba(0,0,0,0.85);">Windo</span>
+        </div>
+        <div style="height:0.65px;background:rgba(0,0,0,0.1);margin:4px 0;"></div>
+        <!-- Rows -->
+        <div class="windo-mock-body">
+          <div class="windo-mock-row">
+            <div class="windo-mock-row-icon" style="background:#b790ff;">
+              <img src="http://localhost:3845/assets/898ccdcb5a424e3de8619656527fd106773a036c.svg" alt="" style="width:10px;height:10px;" />
+            </div>
+            <span class="windo-mock-row-label">Project brief</span>
+          </div>
+          <div class="windo-mock-row active">
+            <div class="windo-mock-row-icon" style="background:#f87edd;">
+              <img src="http://localhost:3845/assets/d985c4d4876f0cc7cb18e4a76a85ee9d2c018a8d.svg" alt="" style="width:10px;height:10px;" />
+            </div>
+            <span class="windo-mock-row-label">Inline work item</span>
+          </div>
+          <div class="windo-mock-row">
+            <div class="windo-mock-row-icon" style="background:#ffc555;">
+              <img src="http://localhost:3845/assets/e3768fc61f8fe372cabe0dd71a20a2c28524fb72.svg" alt="" style="width:10px;height:10px;" />
+            </div>
+            <span class="windo-mock-row-label">Screenshot</span>
+          </div>
+          <div class="windo-mock-row">
+            <div class="windo-mock-row-icon" style="background:#f96161;">
+              <img src="http://localhost:3845/assets/57012a9c2101fb4c17417d870514178e675f369c.svg" alt="" style="width:10px;height:10px;" />
+            </div>
+            <span class="windo-mock-row-label">Q3 earning call</span>
+          </div>
+          <div class="windo-mock-row">
+            <div class="windo-mock-row-icon" style="background:#4fd28a;">
+              <img src="http://localhost:3845/assets/521eb497434af43c1f8be807b9f0e415256f9372.svg" alt="" style="width:10px;height:10px;" />
+            </div>
+            <span class="windo-mock-row-label">Users list</span>
+          </div>
+          <div class="windo-mock-row">
+            <div class="windo-mock-row-icon" style="background:#2cb2fd;">
+              <img src="http://localhost:3845/assets/a379e64b6b4b8c2fe0ac8c574128889846daaad3.svg" alt="" style="width:10px;height:10px;" />
+            </div>
+            <span class="windo-mock-row-label">ChatGPT discussion</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right column -->
+    <div class="icon-col">
+      <!-- Claude / image 70 -->
+      <div class="app-icon" style="padding:10px;">
+        <img src="http://localhost:3845/assets/3f496dc57f23d22eea960edfcd5d7945c868e1a7.png" alt="Claude" style="width:34px;height:35px;" />
+      </div>
+      <!-- image 92 -->
+      <div class="app-icon shadow" style="overflow:hidden;">
+        <img src="http://localhost:3845/assets/34865cc0c1c5b0a4aae6e1eb65772f10370ffce2.png" alt="" style="width:54px;height:54px;object-fit:cover;" />
+      </div>
+      <!-- group 79 -->
+      <div class="app-icon no-bg" style="overflow:visible;position:relative;">
+        <img src="http://localhost:3845/assets/b01aa393b88d10b18b9c5e6c657aa9f4e45db479.svg" alt="" style="width:62px;height:62px;" />
+      </div>
+      <!-- group 80 -->
+      <div class="app-icon no-bg" style="overflow:visible;position:relative;">
+        <img src="http://localhost:3845/assets/e43947b1c1a686d4baec0cf4d8381906024cb956.svg" alt="" style="width:62px;height:62px;" />
+      </div>
+      <!-- image 93 -->
+      <div class="app-icon shadow" style="overflow:hidden;">
+        <img src="http://localhost:3845/assets/298e31b9cebfd58ca8efb12e0ed7d89072bb0476.png" alt="" style="width:54px;height:54px;object-fit:cover;" />
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /hero-wrapper -->
+
+
+<!-- ─── HOW IT WORKS ────────────────────────────────────────────────────── -->
+<section class="section how-it-works">
+  <h2 class="section-title">How it works?</h2>
+  <div class="video-grid">
+    <div>
+      <div class="video-card">
+        <video autoplay loop muted playsinline>
+          <source src="/_videos/v1/88919c6195d48ab5b3e7322efa4d7fd7850228a8" />
+        </video>
+      </div>
+      <div class="video-caption">
+        <div class="video-caption-num">1. Add context to Windo</div>
+        <div class="video-caption-text">Window helps you capture context across tools, organize it into</div>
+      </div>
+    </div>
+    <div>
+      <div class="video-card">
+        <video autoplay loop muted playsinline>
+          <source src="/_videos/v1/6a850845db71d44117c6cbd659e096a98d49d798" />
+        </video>
+      </div>
+      <div class="video-caption">
+        <div class="video-caption-num">2. Use it anywhere</div>
+        <div class="video-caption-text">Window helps you capture context across tools, organize it into</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── CHROME EXTENSION ───────────────────────────────────────────────── -->
+<section class="section chrome-section">
+  <div class="chrome-section-inner">
+
+    <div style="text-align:center;max-width:1279px;width:100%;">
+      <h2 class="chrome-heading">Chrome extension</h2>
+      <p class="chrome-subtitle mt-12">
+        Napoleon is a complete product management tool.<br />
+        Docs, roadmaps, whiteboards. All in one place
+      </p>
+      <div style="display:flex;justify-content:center;margin-top:24px;">
+        <a class="btn btn-chrome" href="#">
+          <img src="http://localhost:3845/assets/c4fbacac326421b8a0ec2121a652f1b1be47847e.svg" alt="Chrome" />
+          Install extension
+        </a>
+      </div>
+    </div>
+
+    <div class="chrome-content-row mt-40">
+      <!-- left features -->
+      <div class="chrome-features">
+        <div class="feature-item">
+          <div class="feature-title">Models switching</div>
+          <div class="feature-desc">Product docs and requirements with ease in a modern rich text editor.</div>
+        </div>
+        <div class="feature-item" style="margin-top:40px;">
+          <div class="feature-title dimmed">Discussions refreshing</div>
+          <div class="feature-desc dimmed">Smart whiteboards for product teams: Brainstorm, map, launch.</div>
+        </div>
+        <div class="feature-item" style="margin-top:40px;">
+          <div class="feature-title dimmed">Discussions saving</div>
+          <div class="feature-desc dimmed">Built-in wireframes, sketch ideas without leaving your workspace.</div>
+        </div>
+      </div>
+
+      <!-- right video -->
+      <div class="chrome-video-wrap" style="flex:1;">
+        <video autoplay loop muted playsinline style="position:absolute;left:22px;top:47px;width:calc(100% - 44px);height:calc(100% - 94px);object-fit:cover;border-radius:8px;">
+          <source src="/_videos/v1/cf98e7b28562b4c64286dee96e918b81166ba078" />
+        </video>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ─── CONTEXT CAPTURING ──────────────────────────────────────────────── -->
+<section class="section context-section">
+  <h2 class="context-title">Context capturing</h2>
+  <div class="context-cards">
+
+    <!-- Card 1: Add files from local -->
+    <div class="context-card">
+      <div class="context-card-title">Add files from local</div>
+      <div class="context-card-desc">
+        Find exactly what you need with<br />context-aware search.
+      </div>
+      <div class="context-card-img" style="margin-top:auto;">
+        <img src="http://localhost:3845/assets/5f0c7f268caa65e225df8d59ac8ccb71b005f12d.png" alt="Add files from local" />
+      </div>
+    </div>
+
+    <!-- Card 2: Capture active apps -->
+    <div class="context-card" style="gap:62px;">
+      <div>
+        <div class="context-card-title">Capture active apps</div>
+        <div class="context-card-desc mt-8">
+          Find exactly what you need with<br />context-aware search.
+        </div>
+      </div>
+      <div class="context-card-img" style="height:241px;flex-shrink:0;flex:none;position:relative;overflow:hidden;border-radius:8px;">
+        <img src="http://localhost:3845/assets/3c3a56b906c72df1539f92f2c8ca9275731c8b70.png" alt="" style="position:absolute;width:107%;top:-10%;left:-3%;opacity:0.6;object-fit:cover;height:115%;" />
+        <img src="http://localhost:3845/assets/677bb58fc9e71678ec5bd4fb8a4d33a24eca3c27.png" alt="Capture active apps" style="position:absolute;left:11px;top:12px;width:calc(100% - 22px);height:219px;object-fit:cover;border-radius:4px;box-shadow:0 2px 4px rgba(0,0,0,0.25);" />
+      </div>
+    </div>
+
+    <!-- Card 3: MCP -->
+    <div class="context-card" style="padding-top:30px;">
+      <div class="context-card-title">MCP</div>
+      <div class="context-card-desc mt-8">
+        Find exactly what you need with<br />context-aware search.
+      </div>
+      <!-- MCP icon decorations from design -->
+      <div style="position:relative;flex:1;display:flex;align-items:center;justify-content:center;padding-top:20px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;justify-items:center;width:100%;">
+          <img src="http://localhost:3845/assets/7af3847690db904097fc82d55c2237ff883b6fd4.svg" alt="" style="width:35px;height:36px;" />
+          <img src="http://localhost:3845/assets/a9d67f4993b9c573ccfce1f7075d89bb078e4775.svg" alt="" style="width:40px;height:36px;" />
+          <img src="http://localhost:3845/assets/559acc5a711ef96f29e983db6b02f80edb8375b3.svg" alt="" style="width:34px;height:34px;" />
+          <img src="http://localhost:3845/assets/6cfd7fee34d39dfa48cef0c9bba4746101d9870c.svg" alt="" style="width:34px;height:34px;" />
+          <img src="http://localhost:3845/assets/9994e8bce7d5d000dd1c5fbe8d6379abe03a6ef4.svg" alt="" style="width:34px;height:34px;" />
+          <img src="http://localhost:3845/assets/eb8e25c5a2d688ae0356731771eae793192b8c2c.svg" alt="" style="width:40px;height:36px;" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ─── ORGANISE MEMORIES IN SPACES ───────────────────────────────────── -->
+<div class="spaces-section">
+  <div class="spaces-bg">
+    <img src="http://localhost:3845/assets/fbf18f8dc7fc3dd25ee90cfa4132fb4cbb7a36c4.png" alt="" />
+  </div>
+  <div class="spaces-inner">
+    <div class="spaces-text">
+      <h2 class="spaces-title">
+        Organise your <span class="highlight">memories</span> in Spaces
+      </h2>
+      <p class="spaces-subtitle">
+        Projects organization that works with any AI model,<br />
+        never lose your workflow when switching models.
+      </p>
+    </div>
+
+    <!-- Windo window (large) -->
+    <div class="windo-window">
+      <!-- titlebar -->
+      <div class="windo-win-titlebar">
+        <div class="windo-win-dot"></div>
+        <div class="windo-win-dot"></div>
+        <div class="windo-win-dot"></div>
+      </div>
+      <span class="windo-win-name">Spaces</span>
+      <div class="windo-win-divider"></div>
+      <!-- rows -->
+      <div class="windo-win-rows">
+        <div class="windo-win-row">
+          <div class="windo-win-row-icon">
+            <img src="http://localhost:3845/assets/7a6155791daa51133ff6d8dca8ed2217fef4cb26.svg" alt="" />
+          </div>
+          <span class="windo-win-row-label">Space 1</span>
+        </div>
+        <div class="windo-win-row active">
+          <div class="windo-win-row-icon">
+            <img src="http://localhost:3845/assets/85fc5c16a1bd9cbb178317eef47dd14f58ee9e85.svg" alt="" />
+          </div>
+          <span class="windo-win-row-label">Space 2</span>
+          <!-- 3-dots icon -->
+          <div style="margin-left:auto;display:flex;gap:2px;align-items:center;">
+            <img src="http://localhost:3845/assets/1d0d9bd91be21eabaf53b098d7111c09f0b2da49.svg" alt="" style="width:8px;height:24px;" />
+          </div>
+        </div>
+        <div class="windo-win-row">
+          <div class="windo-win-row-icon">
+            <img src="http://localhost:3845/assets/7a6155791daa51133ff6d8dca8ed2217fef4cb26.svg" alt="" />
+          </div>
+          <span class="windo-win-row-label">Space 3</span>
+        </div>
+        <div class="windo-win-row" style="margin-top:4px;">
+          <div class="windo-win-row-icon">
+            <img src="http://localhost:3845/assets/28cd05d6d59589c1a4aa454e02ad59bc582af0da.svg" alt="" style="opacity:0.5;" />
+          </div>
+          <span class="windo-win-row-label">Create space</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ─── CONSISTENT CONTEXT ACROSS MODELS ──────────────────────────────── -->
+<section class="section consistent-section">
+  <div class="consistent-inner">
+    <h2 class="consistent-heading">Consistent context across models</h2>
+    <p class="consistent-sub">No need to re-explain your context each time you use a different model</p>
+
+    <div class="consistent-diagram">
+      <!-- connector lines (SVGs) -->
+      <img src="http://localhost:3845/assets/1a2ac7f46bcc9d23fefdc76e29c8c288e57915ad.svg" alt="" style="position:absolute;left:calc(55% + 5px);top:calc(50% - 5px);width:185px;height:11px;pointer-events:none;" />
+      <img src="http://localhost:3845/assets/6e804fe5d495be3dd372ee1fbc277e2a12be662e.svg" alt="" style="position:absolute;left:calc(25% - 5px);top:calc(50% - 5px);width:185px;height:11px;pointer-events:none;transform:rotate(180deg);" />
+      <img src="http://localhost:3845/assets/ab1c357392ecc55d2142f7c3cb122bf3ae114b1c.svg" alt="" style="position:absolute;right:18%;top:25%;width:205px;pointer-events:none;" />
+      <img src="http://localhost:3845/assets/10804dfaa7486993d2e0a26f33585424b7ad8ab0.svg" alt="" style="position:absolute;left:16%;top:25%;width:205px;pointer-events:none;" />
+      <img src="http://localhost:3845/assets/bfe796510c851a6dde59656f792c6ed8314b713b.svg" alt="" style="position:absolute;right:18%;bottom:22%;width:205px;pointer-events:none;" />
+      <img src="http://localhost:3845/assets/5971a9986fc9adb0cc90829bc4c17258209f9685.svg" alt="" style="position:absolute;left:16%;bottom:22%;width:205px;pointer-events:none;" />
+
+      <!-- Center Windo logo -->
+      <div class="diagram-center">
+        <img src="http://localhost:3845/assets/c2a19a45a0de8ab2d1a0ee412a95a58687ebf8d2.png" alt="Windo" />
+      </div>
+
+      <!-- Top-right node -->
+      <div style="position:absolute;top:57px;right:135px;">
+        <div class="diagram-node-circle" style="border:2px solid rgba(255,255,255,0.8);">
+          <img src="http://localhost:3845/assets/b33e931dbd2dda86d1bd9cd901f32a60e3e67024.png" alt="AI model" style="width:34px;height:34px;object-fit:cover;" />
+        </div>
+      </div>
+      <!-- Middle-right node -->
+      <div style="position:absolute;top:50%;transform:translateY(-50%);right:50px;">
+        <div class="diagram-node-circle" style="border:2px solid rgba(255,255,255,0.8);">
+          <img src="http://localhost:3845/assets/a5db57c0219bcf888df7d92bd781e0c92706bfc6.png" alt="AI model" style="width:31px;height:31px;object-fit:cover;" />
+        </div>
+      </div>
+      <!-- Bottom-right node -->
+      <div style="position:absolute;bottom:70px;right:135px;">
+        <div class="diagram-node-circle" style="border:2px solid rgba(255,255,255,0.8);">
+          <img src="http://localhost:3845/assets/7358ec5cce5bbeae93a854adfa08200b1031f6ea.png" alt="AI model" style="width:37px;height:30px;object-fit:cover;" />
+        </div>
+      </div>
+
+      <!-- Top-left node -->
+      <div style="position:absolute;top:57px;left:135px;">
+        <div class="diagram-node-circle" style="border:2px solid rgba(255,255,255,0.5);">
+          <img src="http://localhost:3845/assets/6cb1efe1dabbc1ef6e2a35952075a37ddb0e76a4.png" alt="AI model" style="width:32px;height:32px;object-fit:cover;" />
+        </div>
+      </div>
+      <!-- Middle-left node -->
+      <div style="position:absolute;top:50%;transform:translateY(-50%);left:50px;">
+        <div class="diagram-node-circle" style="border:2px solid rgba(255,255,255,0.5);">
+          <img src="http://localhost:3845/assets/3f496dc57f23d22eea960edfcd5d7945c868e1a7.png" alt="Claude" style="width:38px;height:38px;object-fit:cover;" />
+        </div>
+      </div>
+      <!-- Bottom-left node -->
+      <div style="position:absolute;bottom:70px;left:135px;">
+        <div class="diagram-node-circle" style="border:2px solid rgba(255,255,255,0.5);">
+          <img src="http://localhost:3845/assets/7fefe159913c545030e9f06dd56585882c00c8af.png" alt="AI model" style="width:37px;height:37px;object-fit:contain;" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <span class="footer-text">© 2025 Windo. All rights reserved.</span>
+</footer>
+
+</body>
+</html>
